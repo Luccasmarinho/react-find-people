@@ -1,4 +1,5 @@
 import { Th, Td, Button, ContainerTable, Container } from "./TableStyle";
+import { Link } from "react-router-dom";
 
 const Teste = () => {
   return (
@@ -24,7 +25,9 @@ const Teste = () => {
             <Td>oadasdi</Td>
             <Td>oisdasdasd</Td>
             <Td>
-              <Button>View profile</Button>
+              <Link to={"/profile"}>
+                <Button>View profile</Button>
+              </Link>
             </Td>
           </tr>
         </tbody>

@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         box-sizing: border-box;
         outline: none;
+        list-style: none;
         font-family: "Poppins", sans-serif;
     }
 
