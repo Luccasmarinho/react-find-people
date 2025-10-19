@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 90%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ContainerTable = styled.table`
   border-collapse: collapse;
   width: 100%;
+  max-width: 1300px;
 `;
 
 export const Th = styled.th`

@@ -4,6 +4,8 @@ import {
   TabInfo,
   AreaButton,
   Button,
+  Fields,
+  BorderHighlight,
 } from "./SectionBottomUserDetailsStyle";
 
 const SectionBottomUserDetails = () => {
@@ -22,6 +24,7 @@ const SectionBottomUserDetails = () => {
             onClick={() => handleClickButton("info")}
           >
             Info
+            {nameBtn === "info" && <BorderHighlight layoutId="border" />}
           </Button>
           <Button
             id="location"
@@ -29,6 +32,7 @@ const SectionBottomUserDetails = () => {
             onClick={() => handleClickButton("location")}
           >
             Location
+            {nameBtn === "location" && <BorderHighlight layoutId="border" />}
           </Button>
           <Button
             id="login"
@@ -36,32 +40,33 @@ const SectionBottomUserDetails = () => {
             onClick={() => handleClickButton("login")}
           >
             Login
+            {nameBtn === "login" && <BorderHighlight layoutId="border" />}
           </Button>
         </AreaButton>
-        <div>
+        <Fields>
           <ul>
             <li>
-              <h3>First Nname</h3>
+              <h3>First Name</h3>
               <p>Luccas</p>
             </li>
             <li>
-              <h3>First Nname</h3>
+              <h3>Last Name</h3>
               <p>Luccas</p>
             </li>
             <li>
-              <h3>First Nname</h3>
+              <h3>Title</h3>
               <p>Luccas</p>
             </li>
             <li>
-              <h3>First Nname</h3>
+              <h3>Data</h3>
               <p>Luccas</p>
             </li>
             <li>
-              <h3>First Nname</h3>
+              <h3>Age</h3>
               <p>Luccas</p>
             </li>
           </ul>
-        </div>
+        </Fields>
       </TabInfo>
     </Container>
   );
