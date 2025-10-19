@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Container,
   TabInfo,
@@ -6,13 +7,36 @@ import {
 } from "./SectionBottomUserDetailsStyle";
 
 const SectionBottomUserDetails = () => {
+  const [nameBtn, setNameBtn] = useState("info");
+
+  function handleClickButton(name: string) {
+    setNameBtn(name);
+  }
   return (
     <Container>
       <TabInfo>
         <AreaButton>
-          <Button $active={true}>Info</Button>
-          <Button $active={false}>Location</Button>
-          <Button $active={false}>Login</Button>
+          <Button
+            id="info"
+            $nameBtn={nameBtn}
+            onClick={() => handleClickButton("info")}
+          >
+            Info
+          </Button>
+          <Button
+            id="location"
+            $nameBtn={nameBtn}
+            onClick={() => handleClickButton("location")}
+          >
+            Location
+          </Button>
+          <Button
+            id="login"
+            $nameBtn={nameBtn}
+            onClick={() => handleClickButton("login")}
+          >
+            Login
+          </Button>
         </AreaButton>
         <div>
           <ul>
