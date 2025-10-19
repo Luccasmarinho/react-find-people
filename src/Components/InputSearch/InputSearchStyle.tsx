@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+`;
+
 export const Title = styled.h1`
   color: var(--text);
   font-weight: 700;
@@ -9,7 +17,8 @@ export const Title = styled.h1`
 `;
 
 export const Input = styled.input`
-  width: 672px;
+  width: 100%;
+  max-width: 672px;
   height: 50px;
   padding: 10px;
   border: 1px solid var(--grey2);

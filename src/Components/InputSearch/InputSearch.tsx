@@ -1,11 +1,11 @@
-import { Title, Input } from "./InputSearchStyle";
+import { Title, Input, Container } from "./InputSearchStyle";
 
 const InputSearch = () => {
   return (
-    <div>
+    <Container>
       <Title>Find People</Title>
       <Input type="text" placeholder="Search people..." />
-    </div>
+    </Container>
   );
 };
 
