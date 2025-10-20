@@ -6,8 +6,7 @@ export default function BasicPagination() {
     <Stack
       spacing={2}
       sx={{
-        position: "absolute",
-        bottom: "20px",
+        padding: "20px",
       }}
     >
       <Pagination
