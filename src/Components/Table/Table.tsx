@@ -1,4 +1,4 @@
-import { Th, Td, Button, ContainerTable, Container } from "./TableStyle";
+import { Th, Td, Button, ContainerTable, Container, ContainerTableWrapper } from "./TableStyle";
 import { Link } from "react-router-dom";
 import { api } from "../../service/api";
 import { useQuery } from "@tanstack/react-query";
@@ -25,6 +25,16 @@ interface DataPeopleResults {
 }
 
 const Table = () => {
+  const headTable = [
+    "ID",
+    "First Name",
+    "Last Name",
+    "Title",
+    "Date",
+    "Age",
+    "Actions",
+  ];
+
   async function getData(): Promise<DataPeopleResults> {
     const connection = await api.get<DataPeopleResults>("/?results=5");
     return connection.data;
@@ -41,36 +51,34 @@ const Table = () => {
 
   return (
     <Container>
-      <ContainerTable>
-        <thead>
-          <tr>
-            <Th>ID</Th>
-            <Th>First Name</Th>
-            <Th>Last Name</Th>
-            <Th>Title</Th>
-            <Th>Date</Th>
-            <Th>Age</Th>
-            <Th>Actions</Th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.results.map((e) => (
-            <tr key={e.id.value ?? crypto.randomUUID()}>
-              <Td>{e.id.value ?? crypto.randomUUID()}</Td>
-              <Td>{e.name.first}</Td>
-              <Td>{e.name.last}</Td>
-              <Td>{e.name.title}</Td>
-              <Td>{formatDate(e.registered.date)}</Td>
-              <Td>{e.registered.age}</Td>
-              <Td>
-                <Link to={"/profile"}>
-                  <Button>View profile</Button>
-                </Link>
-              </Td>
+      <ContainerTableWrapper>
+        <ContainerTable>
+          <thead>
+            <tr>
+              {headTable.map((e) => (
+                <Th key={crypto.randomUUID()}>{e}</Th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </ContainerTable>
+          </thead>
+          <tbody>
+            {data?.results.map((e) => (
+              <tr key={e.id.value ?? crypto.randomUUID()}>
+                <Td>{e.id.value ?? crypto.randomUUID()}</Td>
+                <Td>{e.name.first}</Td>
+                <Td>{e.name.last}</Td>
+                <Td>{e.name.title}</Td>
+                <Td>{formatDate(e.registered.date)}</Td>
+                <Td>{e.registered.age}</Td>
+                <Td>
+                  <Link to={"/profile"}>
+                    <Button>View profile</Button>
+                  </Link>
+                </Td>
+              </tr>
+            ))}
+          </tbody>
+        </ContainerTable>
+      </ContainerTableWrapper>
       <BasicPagination />
     </Container>
   );

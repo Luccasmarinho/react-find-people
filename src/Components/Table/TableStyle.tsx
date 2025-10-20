@@ -6,6 +6,15 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+`;
+
+export const ContainerTableWrapper = styled.div`
+  width: 100%;
+  overflow-x: auto; /* permite scroll horizontal quando necessário */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContainerTable = styled.table`
