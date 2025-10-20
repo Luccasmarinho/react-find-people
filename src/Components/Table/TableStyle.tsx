@@ -11,15 +11,14 @@ export const Container = styled.div`
 
 export const ContainerTableWrapper = styled.div`
   width: 100%;
-  overflow-x: auto; /* permite scroll horizontal quando necessário */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  overflow-x: auto;
+  display: block;
 `;
 
 export const ContainerTable = styled.table`
   border-collapse: collapse;
   width: 100%;
+  min-width: 800px;
   max-width: 1300px;
 `;
 
