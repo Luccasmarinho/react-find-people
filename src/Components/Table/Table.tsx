@@ -1,7 +1,44 @@
 import { Th, Td, Button, ContainerTable, Container } from "./TableStyle";
 import { Link } from "react-router-dom";
+import { api } from "../../service/api";
+import { useQuery } from "@tanstack/react-query";
+import formatDate from "../../utils/utilts";
+import BasicPagination from "../BasicPagination/BasicPagination";
 
-const Teste = () => {
+interface DataPeople {
+  id: {
+    value: string;
+  };
+  name: {
+    title: string;
+    first: string;
+    last: string;
+  };
+  registered: {
+    age: number;
+    date: string;
+  };
+}
+
+interface DataPeopleResults {
+  results: DataPeople[];
+}
+
+const Table = () => {
+  async function getData(): Promise<DataPeopleResults> {
+    const connection = await api.get<DataPeopleResults>("/?results=5");
+    return connection.data;
+  }
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["dataPeople"],
+    queryFn: getData,
+    // placeholderData: (previousData) => previousData,
+    // staleTime: 5000,
+  });
+
+  if (isLoading) return <p style={{ color: "white" }}>Carregando...</p>;
+
   return (
     <Container>
       <ContainerTable>
@@ -17,23 +54,26 @@ const Teste = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <Td>12121323</Td>
-            <Td>odasdasdi</Td>
-            <Td>oasdadsi</Td>
-            <Td>oi</Td>
-            <Td>oadasdi</Td>
-            <Td>oisdasdasd</Td>
-            <Td>
-              <Link to={"/profile"}>
-                <Button>View profile</Button>
-              </Link>
-            </Td>
-          </tr>
+          {data?.results.map((e) => (
+            <tr key={e.id.value ?? crypto.randomUUID()}>
+              <Td>{e.id.value ?? crypto.randomUUID()}</Td>
+              <Td>{e.name.first}</Td>
+              <Td>{e.name.last}</Td>
+              <Td>{e.name.title}</Td>
+              <Td>{formatDate(e.registered.date)}</Td>
+              <Td>{e.registered.age}</Td>
+              <Td>
+                <Link to={"/profile"}>
+                  <Button>View profile</Button>
+                </Link>
+              </Td>
+            </tr>
+          ))}
         </tbody>
       </ContainerTable>
+      <BasicPagination />
     </Container>
   );
 };
 
-export default Teste;
+export default Table;
