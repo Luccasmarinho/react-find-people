@@ -11,9 +11,11 @@ import { api } from "../../service/api";
 import { useQuery } from "@tanstack/react-query";
 import formatDate from "../../utils/utilts";
 import BasicPagination from "../BasicPagination/BasicPagination";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { IPagination } from "../BasicPagination/BasicPagination";
 import Loading from "../../Loading/Loading";
+import { Context } from "../../context/Context";
+import Empty from "../Empty/Empty";
 
 interface DataPeople {
   id: {
@@ -39,16 +41,17 @@ const Table = () => {
   const itemsPerPage = 5;
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const { valueInputName } = useContext(Context);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["dataPeople"],
+    queryKey: ["dataPeople", page],
     queryFn: getData,
     placeholderData: (previousData) => previousData,
     staleTime: 5000,
   });
 
   const headTable = [
-    "ID",
+    // "ID",
     "First Name",
     "Last Name",
     "Title",
@@ -58,7 +61,9 @@ const Table = () => {
   ];
 
   async function getData(): Promise<DataPeopleResults> {
-    const connection = await api.get<DataPeopleResults>("/?results=25");
+    const connection = await api.get<DataPeopleResults>(
+      "/?results=25&seed=meu-tipo"
+    );
     return connection.data;
   }
 
@@ -71,11 +76,17 @@ const Table = () => {
     setPage(newPage);
   };
 
+  const filteredData = data?.results
+    .slice(startIndex, endIndex)
+    .filter((e) =>
+      e.name.first.toLowerCase().includes(valueInputName.toLowerCase())
+    );
+
   return (
     <>
       {isLoading ? (
         <Loading />
-      ) : (
+      ) : filteredData && filteredData.length > 0 ? (
         <Container
           initial={{ x: -100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -91,23 +102,21 @@ const Table = () => {
                 </tr>
               </thead>
               <tbody>
-                {data?.results
-                  .map((e) => (
-                    <tr key={crypto.randomUUID()}>
-                      <Td>{crypto.randomUUID().slice(0, 8)}</Td>
-                      <Td>{e.name.first}</Td>
-                      <Td>{e.name.last}</Td>
-                      <Td>{e.name.title}</Td>
-                      <Td>{formatDate(e.registered.date)}</Td>
-                      <Td>{e.registered.age}</Td>
-                      <Td>
-                        <Link to={"/profile"}>
-                          <Button>View profile</Button>
-                        </Link>
-                      </Td>
-                    </tr>
-                  ))
-                  .slice(startIndex, endIndex)}
+                {filteredData?.map((e) => (
+                  <tr key={crypto.randomUUID()}>
+                    {/* <Td>{e.id.value || crypto.randomUUID().slice(0, 8)}</Td> */}
+                    <Td>{e.name.first}</Td>
+                    <Td>{e.name.last}</Td>
+                    <Td>{e.name.title}</Td>
+                    <Td>{formatDate(e.registered.date)}</Td>
+                    <Td>{e.registered.age}</Td>
+                    <Td>
+                      <Link to={"/profile"}>
+                        <Button>View profile</Button>
+                      </Link>
+                    </Td>
+                  </tr>
+                ))}
               </tbody>
             </ContainerTable>
           </ContainerTableWrapper>
@@ -117,6 +126,8 @@ const Table = () => {
             onChange={handlePageChange}
           />
         </Container>
+      ) : (
+        <Empty />
       )}
     </>
   );
