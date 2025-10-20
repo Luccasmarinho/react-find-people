@@ -54,7 +54,7 @@ const Table = () => {
     return connection.data;
   }
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["dataPeople"],
     queryFn: getData,
     placeholderData: (previousData) => previousData,
