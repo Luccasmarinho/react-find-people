@@ -1,7 +1,13 @@
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-export default function BasicPagination() {
+export interface IPagination {
+  totalPages: number;
+  page: number;
+  onChange: (event: React.ChangeEvent<unknown>, newPage: number) => void;
+}
+
+export default function BasicPagination({ totalPages, page, onChange }: IPagination) {
   return (
     <Stack
       spacing={2}
@@ -10,7 +16,8 @@ export default function BasicPagination() {
       }}
     >
       <Pagination
-        count={5}
+        count={totalPages}
+        page={page}
         variant="outlined"
         sx={{
           "& .MuiPaginationItem-root": {
@@ -22,6 +29,7 @@ export default function BasicPagination() {
             color: "white",
           },
         }}
+        onChange={onChange}
       />
     </Stack>
   );
