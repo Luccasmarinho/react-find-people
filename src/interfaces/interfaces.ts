@@ -16,8 +16,20 @@ export interface DataPeople {
     picture: {
       large: string;
     }
+    login: {
+      username: string;
+    }
+    location: {
+      city: string;
+      country: string;
+      state: string;
+      street: {
+        name: string;
+        number: number;
+      }
+    }
   }
-  
+
   export interface DataPeopleResults {
     results: DataPeople[];
   }
@@ -40,3 +52,7 @@ export interface IPagination {
   export interface ButtonProps {
     $nameBtn?: string;
   }
+
+  export type InfoTypes = DataPeople["name"] & DataPeople["registered"];
+  export type LoginTypes = DataPeople["login"];
+  export type LocationTypes = Omit<DataPeople["location"], "street"> & DataPeople["location"]["street"];

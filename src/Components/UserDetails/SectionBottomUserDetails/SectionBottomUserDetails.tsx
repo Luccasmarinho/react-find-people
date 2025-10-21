@@ -10,13 +10,14 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import getData from "../../../service/api";
 import { useParams } from "react-router-dom";
-import formatDate from "../../../utils/utilts";
 import Loading from "../../Loading/Loading";
+import Info from "../Info/Info";
+import Location from "../Location/Location";
+import Login from "../Login/Login";
 
 const SectionBottomUserDetails = () => {
   const [nameBtn, setNameBtn] = useState("info");
   const { name } = useParams();
-
 
   const { data, isLoading } = useQuery({
     queryKey: ["dataPeople"],
@@ -67,28 +68,27 @@ const SectionBottomUserDetails = () => {
             </Button>
           </AreaButton>
           <Fields>
-            <ul>
-              <li>
-                <h3>First Name</h3>
-                <p>{findUser?.name.first}</p>
-              </li>
-              <li>
-                <h3>Last Name</h3>
-                <p>{findUser?.name.last}</p>
-              </li>
-              <li>
-                <h3>Title</h3>
-                <p>{findUser?.name.title}</p>
-              </li>
-              <li>
-                <h3>Date</h3>
-                <p>{findUser ? formatDate(findUser.registered.date) : null}</p>
-              </li>
-              <li>
-                <h3>Age</h3>
-                <p>{findUser?.registered.age}</p>
-              </li>
-            </ul>
+            {nameBtn === "info" && (
+              <Info
+                first={findUser?.name.first ?? "Unknown"}
+                last={findUser?.name.last ?? "Unknown"}
+                title={findUser?.name.title ?? "Unknown"}
+                date={findUser?.registered.date ?? "Unknown"}
+                age={findUser?.registered.age ?? 0}
+              />
+            )}
+            {nameBtn === "location" && (
+              <Location
+                city={findUser?.location.city ?? "Unknown"}
+                country={findUser?.location.country ?? "Unknown"}
+                state={findUser?.location.state ?? "Unknown"}
+                name={findUser?.location.street.name ?? "Unknown"}
+                number={findUser?.location.street.number ?? 0}
+              />
+            )}
+            {nameBtn === "login" && (
+              <Login username={findUser?.login.username ?? "Unknown"} />
+            )}
           </Fields>
         </TabInfo>
       )}
