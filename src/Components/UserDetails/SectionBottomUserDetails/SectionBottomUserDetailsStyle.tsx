@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import type {ButtonProps} from "../../../interfaces/interfaces"
 
-interface ButtonProps {
-  $nameBtn?: string;
-}
-
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   color: white;
   display: flex;
   justify-content: center;
@@ -14,6 +11,10 @@ export const Container = styled.div`
 export const TabInfo = styled.div`
   width: 406px;
   height: 330px;
+
+  @media screen and (max-width: 400px) {
+    padding: 10px;
+  }
 `;
 
 export const AreaButton = styled.div`

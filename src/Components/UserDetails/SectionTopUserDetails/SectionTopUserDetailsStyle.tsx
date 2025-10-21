@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
   position: relative;
   border-bottom: 1px solid color-mix(in srgb, var(--grey) 30%, transparent);
   padding: 5px;

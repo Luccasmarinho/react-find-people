@@ -1,10 +1,6 @@
 import { useState } from "react";
 import { Context } from "./Context";
-import type { ReactNode } from "react";
-
-export interface PropsChildren {
-    children: ReactNode;
-}
+import type { PropsChildren } from "../interfaces/interfaces";
 
 const ProviderContext = ({ children }: PropsChildren) => {
   const [valueInputName, setValueInputName] = useState<string>("");

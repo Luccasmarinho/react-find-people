@@ -1,11 +1,6 @@
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
-export interface IPagination {
-  totalPages: number;
-  page: number;
-  onChange: (event: React.ChangeEvent<unknown>, newPage: number) => void;
-}
+import type {IPagination} from "../../interfaces/interfaces"
 
 export default function BasicPagination({ totalPages, page, onChange }: IPagination) {
   return (

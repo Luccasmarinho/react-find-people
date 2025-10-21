@@ -7,34 +7,15 @@ import {
   ContainerTableWrapper,
 } from "./TableStyle";
 import { Link } from "react-router-dom";
-import { api } from "../../service/api";
+import getData from "../../service/api";
 import { useQuery } from "@tanstack/react-query";
 import formatDate from "../../utils/utilts";
 import BasicPagination from "../BasicPagination/BasicPagination";
 import { useContext, useState } from "react";
-import type { IPagination } from "../BasicPagination/BasicPagination";
-import Loading from "../../Loading/Loading";
+import type { IPagination } from "../../interfaces/interfaces";
+import Loading from "../Loading/Loading";
 import { Context } from "../../context/Context";
 import Empty from "../Empty/Empty";
-
-interface DataPeople {
-  id: {
-    value: string;
-  };
-  name: {
-    title: string;
-    first: string;
-    last: string;
-  };
-  registered: {
-    age: number;
-    date: string;
-  };
-}
-
-interface DataPeopleResults {
-  results: DataPeople[];
-}
 
 const Table = () => {
   const [page, setPage] = useState<number>(1);
@@ -59,13 +40,6 @@ const Table = () => {
     "Age",
     "Actions",
   ];
-
-  async function getData(): Promise<DataPeopleResults> {
-    const connection = await api.get<DataPeopleResults>(
-      "/?results=25&seed=meu-tipo"
-    );
-    return connection.data;
-  }
 
   let totalPages = 0;
   if (data?.results) {
@@ -111,7 +85,7 @@ const Table = () => {
                     <Td>{formatDate(e.registered.date)}</Td>
                     <Td>{e.registered.age}</Td>
                     <Td>
-                      <Link to={"/profile"}>
+                      <Link to={`/profile/${e.name.first}`}>
                         <Button>View profile</Button>
                       </Link>
                     </Td>

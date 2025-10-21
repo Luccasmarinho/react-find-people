@@ -8,7 +8,7 @@ const RoutesApp = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<UserDetails />} />
+          <Route path="/profile/:name" element={<UserDetails />} />
           <Route path="/*" element={<p>not found</p>} />
         </Routes>
       </BrowserRouter>
