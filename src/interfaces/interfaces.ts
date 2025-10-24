@@ -1,3 +1,4 @@
+import type { QueryObserverResult } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 
 export interface DataPeople {
@@ -51,6 +52,13 @@ export interface IPagination {
 
   export interface ButtonProps {
     $nameBtn?: string;
+  }
+
+  export interface TypeError {
+    message: string;
+    refetch: () => Promise<
+      QueryObserverResult<DataPeopleResults, globalThis.Error>
+    >;
   }
 
   export type InfoTypes = DataPeople["name"] & DataPeople["registered"];

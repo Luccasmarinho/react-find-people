@@ -16,6 +16,7 @@ import type { IPagination } from "../../interfaces/interfaces";
 import Loading from "../Loading/Loading";
 import { Context } from "../../context/Context";
 import Empty from "../Empty/Empty";
+import Error from "../Error/Error";
 
 const Table = () => {
   const [page, setPage] = useState<number>(1);
@@ -24,12 +25,19 @@ const Table = () => {
   const endIndex = startIndex + itemsPerPage;
   const { valueInputName } = useContext(Context);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error, isError, refetch } = useQuery({
     queryKey: ["dataPeople", page],
     queryFn: getData,
     placeholderData: (previousData) => previousData,
     staleTime: 5000,
+    retry: 2,
   });
+
+  if (isError) {
+    return (
+      <Error message={error.message} refetch={refetch}/>
+    )
+  }
 
   const headTable = [
     // "ID",
