@@ -11,6 +11,7 @@ export default function BasicPagination({ totalPages, page, onChange }: IPaginat
       }}
     >
       <Pagination
+        aria-label="pagination"
         count={totalPages}
         page={page}
         variant="outlined"

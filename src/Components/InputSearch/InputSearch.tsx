@@ -16,7 +16,7 @@ const InputSearch = () => {
         type="text"
         placeholder="Search people..."
         value={valueInputName}
-        onChange={(e) => handleChange(e)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
       />
     </Container>
   );

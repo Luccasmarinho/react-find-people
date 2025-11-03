@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.app.json",
+    "compilerOptions": {
+      "module": "NodeNext",
+      "moduleResolution": "NodeNext",
+      "verbatimModuleSyntax": false,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+    },
+    "include": ["src"]
+  }
+  
