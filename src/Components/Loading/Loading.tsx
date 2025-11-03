@@ -12,7 +12,7 @@ export default function CircularIndeterminate() {
         alignItems: "center",
       }}
     >
-      <CircularProgress sx={{ color: "#811ac0" }} />
+      <CircularProgress sx={{ color: "#811ac0" }} aria-label="loading-circular"/>
     </Box>
   );
 }
